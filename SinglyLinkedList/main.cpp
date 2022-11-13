@@ -8,9 +8,10 @@ int main(){
     myList.add(2);
     myList.add(3);
     myList.add(4);
+    myList.add(3);
 
     
-    myList.addFirst(5);
-    myList.show();
+    cout << myList.get(0) << endl;
+    // myList.show();
     return 0;
 }
