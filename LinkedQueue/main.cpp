@@ -1,4 +1,4 @@
-#include "MyLinkedQueue.h"
+#include "MyLinkedQueue.hpp"
 
 int main(){
     MyLinkedQueue<int> linkedQueue;

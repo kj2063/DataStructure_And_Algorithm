@@ -1,4 +1,4 @@
-#include "MyLinkedStack.h"
+#include "MyLinkedStack.hpp"
 
 int main(){
     MyLinkedStack<int> linkedStack;
