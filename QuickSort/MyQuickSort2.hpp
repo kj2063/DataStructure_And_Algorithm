@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include "MyLinkedStack.hpp"
 
+// A stack overflow can occur when trying to sort a very large array with quicksort using a recursive function.
+// The solution is to implement quicksort with a stack data structure and loop.
+
 void swap2(int &A, int &B){
     int temp = A;
     A = B;
