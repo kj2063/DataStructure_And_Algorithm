@@ -51,3 +51,5 @@ void quickSort(int dataArr[], int leftIndex, int rightIndex){
         quickSort(dataArr, index+1, rightIndex);
     }
 }
+
+
