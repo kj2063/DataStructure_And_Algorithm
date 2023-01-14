@@ -1,4 +1,5 @@
 #include <iostream>
+#include "MyLinkedQueue.hpp"
 
 using namespace std;
 
@@ -34,17 +35,19 @@ struct edge {
 
 template <typename T>
 class MyGraph {
-    private:
+    
+    public:
         vertex<T> *vertices;
         int vertexCount;
 
-    public:
         MyGraph():vertices{NULL},vertexCount{0}{};
         ~MyGraph(){};
 
         vertex<T>* createVertex(T dataParam);
         void addVertex(vertex<T> *vertexParam);
         void addEdge(vertex<T> *fromVertex, vertex<T> *toVertex);
+        void DFS(vertex<T> * vertexParam);//depth first search
+        void BFS();//breadth first search
         void showAll();
 };
 
@@ -86,8 +89,73 @@ void MyGraph<T>::addEdge(vertex<T> *fromVertexParam, vertex<T> *toVertexParam){
 
         adjacencyList->next = newEdge;
     }
+
+    // //In the case of undirected graph, add following code. If not, remove it.
+    // edge<T> *newReverseEdge = new edge(toVertexParam, fromVertexParam);
+
+    // if(toVertexParam->adjacencyList == NULL){
+    //     toVertexParam->adjacencyList = newReverseEdge;
+    // }
+    // else{
+    //     edge<T> *adjacencyList = toVertexParam->adjacencyList;
+    //     while(adjacencyList->next != NULL){
+    //         adjacencyList = adjacencyList->next;
+    //     }
+
+    //     adjacencyList->next = newReverseEdge;
+    // }
+
 };
 
+template <typename T>
+void MyGraph<T>::DFS(vertex<T> *targetVertex){
+
+    printf("%c ",targetVertex->data);
+
+    vertex<T> *vertexPtr = targetVertex;
+
+    vertexPtr->visit = visited;
+
+    edge<T> *edgePtr = vertexPtr->adjacencyList;
+
+    while(edgePtr != NULL){
+        if(edgePtr->target != NULL && edgePtr->target->visit != visited){
+            DFS(edgePtr->target);
+        }
+
+        edgePtr = edgePtr->next;
+    }
+}
+
+template <typename T>
+void MyGraph<T>::BFS(){
+    MyLinkedQueue<vertex<T>> linkedQueue;
+
+    vertex<T> *vertexPtr = this->vertices;
+    
+    linkedQueue.enQueue(vertexPtr);
+    vertexPtr->visit = visited;
+
+    printf("%c ", vertexPtr->data);
+
+    while(!linkedQueue.isEmpty()){
+        vertex<T> *targetVertex = linkedQueue.deQueue();
+
+        edge<T> *edgePtr = targetVertex->adjacencyList;
+        
+        int cnt = 0;
+        while(edgePtr != NULL){
+            if(edgePtr->target->visit != visited){
+                linkedQueue.enQueue(edgePtr->target);
+                edgePtr->target->visit=visited;
+
+                printf("%c ", edgePtr->target->data);
+            }
+
+                edgePtr = edgePtr->next;
+        }
+    }
+}
 
 template <typename T>
 void MyGraph<T>::showAll(){
@@ -114,4 +182,4 @@ void MyGraph<T>::showAll(){
     }
 
     printf("\n");
-}
+};

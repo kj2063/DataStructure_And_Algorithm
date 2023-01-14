@@ -4,8 +4,10 @@ using namespace std;
 
 template <typename T>
 struct Node{
-    T data;
+    T *data;
     Node<T> *nextNode;
+    Node(T *dataParam):data{dataParam},nextNode{nullptr}{};
+    ~Node(){};
 };
 
 template <typename T>
@@ -20,9 +22,9 @@ class MyLinkedQueue{
         ~MyLinkedQueue(){};
         
         bool isEmpty();
-        void enQueue(T data);
-        T deQueue();
-        T getFront();
+        void enQueue(T *data);
+        T* deQueue();
+        T* getFront();
         int getSize();
         void show();
 };
@@ -38,10 +40,8 @@ bool MyLinkedQueue<T>::isEmpty(){
 };
 
 template <typename T>
-void MyLinkedQueue<T>::enQueue(T data){
-    Node<T> *newNode = new Node<T>;
-    newNode->data = data;
-    newNode->nextNode = nullptr;
+void MyLinkedQueue<T>::enQueue(T *data){
+    Node<T> *newNode = new Node<T>(data);
     size++;
     
     if(isEmpty()){
@@ -55,13 +55,13 @@ void MyLinkedQueue<T>::enQueue(T data){
 };
 
 template <typename T>
-T MyLinkedQueue<T>::deQueue(){
+T* MyLinkedQueue<T>::deQueue(){
     if(isEmpty()){
         cout << "Empty Queue" << endl;
-        return NULL:
+        return nullptr;
     }
     else{
-        T resData = front->data;
+        T *resData = front->data;
         Node<T> *preFrontNode = front;
 
         front = front->nextNode;
@@ -74,10 +74,10 @@ T MyLinkedQueue<T>::deQueue(){
 };
 
 template <typename T>
-T MyLinkedQueue<T>::getFront(){
+T* MyLinkedQueue<T>::getFront(){
     if(isEmpty()){
         cout << "Empty Queue" << endl;
-        return NULL;
+        return nullptr;
     }
     else{
         cout << "getFront -> " << front->data << endl;
